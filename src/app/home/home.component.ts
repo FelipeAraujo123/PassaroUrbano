@@ -12,13 +12,22 @@ export class HomeComponent implements OnInit {
 
   public ofertas: Oferta[]
 
-  constructor(private ofertasService: OfertasService) { }
+  constructor(private ofertasService: OfertasService) {  }
 
   ngOnInit(): void {
-    //this.ofertas = this.ofertasService.getOfertas()
-    //console.log(this.ofertas)
 
-    this.ofertas = this.ofertasService.getOfertas2()
+    this.ofertasService.getOfertas()
+      .then(
+        (ofertas: Oferta[]) => {
+          this.ofertas = ofertas 
+          console.log('Entrou no THEN')
+        }
+      )
+      .catch ( ( param: any ) => {
+        console.log(param)
+        console.log('Entrou no Cath')
+
+      })
   }
 
 }
